@@ -77,7 +77,7 @@ FinalTask/
 
 ### Datová vrstva (princip idempotence)
 
-Každá nákladná fáze kontroluje existenci výstupního souboru a shodu počtu řádků
+Každá fáze kontroluje existenci výstupního souboru a shodu počtu řádků
 s aktuálním datasetem. Pokud soubor existuje a počty sedí, fáze se přeskočí.
 Přepínač `--force` toto chování potlačí a vynutí přepočítání.
 
@@ -362,7 +362,7 @@ Response      → JSON pole: [{sentiment, aggressiveness, primary_framing}, …]
 
 ## 8. Modul `visualization.py`
 
-**Účel:** Generování tří vědeckých vizualizací ve formátu PNG (150 DPI).
+**Účel:** Generování tří; vizualizací ve formátu PNG (150 DPI).
 
 ### Obrázek 1 — `semantic_map.png`
 
