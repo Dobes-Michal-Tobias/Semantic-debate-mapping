@@ -1,0 +1,17 @@
+# ── Core data science stack ───────────────────────────────────────────────────
+numpy>=1.26
+pandas>=2.1
+scikit-learn>=1.4
+
+# ── Visualisation ─────────────────────────────────────────────────────────────
+matplotlib>=3.8
+seaborn>=0.13
+
+# ── NLP / embeddings ──────────────────────────────────────────────────────────
+sentence-transformers>=2.7
+
+# ── Dimensionality reduction (optional – PCA fallback used if not installed) ──
+umap-learn>=0.5
+
+# ── LLM enrichment (optional – only needed for `python main.py --enrich`) ─────
+anthropic>=0.25
