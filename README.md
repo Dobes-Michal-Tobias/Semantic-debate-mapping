@@ -1,4 +1,4 @@
-# Political Discourse Topology (PDT)
+# Political Discourse Topology (PDT): Quantitative analysis of semantic convergence and lexical diversity in the 2025 election debates
 
 Computational analysis of Czech political debate transcripts — quantitative linguistics,
 semantic embeddings, and LLM-powered rhetorical tagging.
