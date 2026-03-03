@@ -34,16 +34,17 @@ Thumbs.db
 secrets.json
 
 # ── Generated / cached data  (keep directory skeletons via .gitkeep) ──────────
-data/interim/*.csv
+# data/interim/*.csv
 data/interim/*.npy
+data/interim/*.csv
 data/processed/*.csv
 
 # ── Downloaded model weights ──────────────────────────────────────────────────
 models/
 
 # ── Generated figures ─────────────────────────────────────────────────────────
-results/*.png
-results/*.pdf
+# results/*.png
+# results/*.pdf
 results/*.svg
 
 # ── Jupyter artefacts ─────────────────────────────────────────────────────────
