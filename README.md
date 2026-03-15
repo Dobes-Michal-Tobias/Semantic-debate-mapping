@@ -1,7 +1,9 @@
-# Political Discourse Topology (PDT): Quantitative analysis of semantic convergence and lexical diversity in the 2025 election debates
+# Mapping Semantic Convergence and Lexical Diversity in the 2025 Election Debates
 
 Computational analysis of Czech political debate transcripts — quantitative linguistics,
 semantic embeddings, and LLM-powered rhetorical tagging.
+
+> **Paper:** See [`article.pdf`](article.pdf) for the full academic write-up (in Czech).
 
 ---
 
@@ -65,6 +67,9 @@ Results are written to `results/`.
 FinalTask/
 ├── main.py                        # Orchestration entry point
 ├── requirements.txt
+├── article.tex                    # LaTeX source of the research paper
+├── article.pdf                    # Compiled paper (PDF)
+├── TECHNICKA_DOKUMENTACE.md       # Czech technical documentation
 ├── src/
 │   ├── config.py                  # All paths, palette, seaborn style
 │   ├── parser.py                  # Transcript → cleaned_debates.csv
@@ -99,9 +104,10 @@ correct number of rows, the stage is skipped automatically.
 
 ## Dataset
 
-- **Source:** Single Czech political debate transcript (`data/raw/full_transcript.txt`)
+- **Source:** Czech Television pre-election debate transcripts (`data/raw/full_transcript.txt`)
+- **Period:** September–October 2025
 - **Scope:** Topic `1.10 Ekonomika`
-- **Size:** ~7 715 speech acts
+- **Size:** 7 715 speech acts
 - **Parties:** ANO · SPOLU · Piráti · STAN · SPD · Stačilo! · Motoristé · Přísaha · moderátor
 
 ---
@@ -122,7 +128,14 @@ supports Czech out of the box.
 
 ---
 
-## Czech technical documentation
+## Technical documentation
 
 See [TECHNICKA_DOKUMENTACE.md](TECHNICKA_DOKUMENTACE.md) for a detailed module-by-module
 description in Czech.
+
+---
+
+## License
+
+This project was developed as a seminar paper for the course **KRAD — Kritická analýza diskurzu**
+at the Department of General Linguistics, Palacký University Olomouc.
