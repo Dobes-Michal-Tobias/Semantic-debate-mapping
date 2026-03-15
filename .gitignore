@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 *.pyo
 *.pyd
+*.pyc
 .Python
 pip-log.txt
 pip-delete-this-directory.txt
@@ -55,3 +56,27 @@ results/*.svg
 .pytest_cache/
 .coverage
 htmlcov/
+
+# --- LaTeX Temporary Files ---
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.pdfsync
+*.blg
+*.bbl
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.lof
+*.lot
+
+# --- macOS / IDE junk ---
+.DS_Store
+.vscode/
+.idea/
