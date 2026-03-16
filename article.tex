@@ -49,11 +49,9 @@
 \begin{abstract}
 Předkládaná studie navrhuje a~aplikuje kvantitativní pipeline pro analýzu
 politického diskurzu na korpusu 7\,715 promluv z~předvolebních debat České
-televize (podzim~2025). Metodologický rámec integruje sentence embeddingy
+televize (podzim~2025). Metodologický rámec propojuje sentence embeddingy
 (model \modelname{}), redukci dimenzí
-algoritmem UMAP, lexikální metriky (Type-Token Ratio, Maas index) a~volitelné
-obohacení promluv pomocí velkého jazykového modelu (sentiment, agresivita,
-rétorickéé rámce). Výsledky vizualizované prostřednictvím sémantické mapy,
+algoritmem UMAP, lexikální metriky (Type-Token Ratio, Maas index) s pokročilou strojovou klasifikací promluv pomocí velkých jazykových modelů, umožňující detekci sentimentu, míry agresivity či dominantních rétorických rámců. Výsledky vizualizované prostřednictvím sémantické mapy,
 bubble chartu rétorického profilu a~heatmapy tematické dominance ukazují
 výraznou konvergenci středových stran v~sémantickém prostoru, odlišnou
 syntaktickou komplexitu Pirátů a~specifické tematické strategie
@@ -74,7 +72,7 @@ Maas index, kvantitativní lingvistika, NLP, předvolební debaty
 \section{Úvod}
 \label{sec:uvod}
 
-Předvolební kampaň před parlamentními volbami v~říjnu 2025 představovala
+Předvolební kampaň před volbami do Poslanecké sněmovny ČR v~říjnu 2025 představovala
 v~českém politickém prostředí událost s~vysokou diskurzivní dynamikou.
 Televizní debaty České televize, vysílané od září do října~2025, poskytly
 systematický a~veřejně přístupný zdroj politických promluv pokrývající
@@ -92,8 +90,7 @@ rozsáhlé korpusy a~identifikovat vzorce nepozorovatelné manuální
 analýzou.
 
 Předkládaná studie si klade za cíl navrhnout a~aplikovat reprodukovatelnou
-analytickou pipeline — nazvanou \textbf{Political Discourse Topology (PDT)}
-— která transformuje surové textové přepisy debat na strukturované
+analytickou pipeline, která transformuje surové textové přepisy debat na strukturované
 sémantické, lexikální a~rétorické reprezentace. Konkrétně jsou formulovány
 tři výzkumné otázky:
 
@@ -104,7 +101,7 @@ tři výzkumné otázky:
   \item Jaká je lexikální rozmanitost a~syntaktická komplexita vyjadřování
         napříč stranami, kvantifikovaná pomocí TTR a~Maas indexu?
   \item Jaké tematické a~rétorické strategie strany využívají v~kontextu
-        ekonomické debaty?
+        předvolební debaty?
 \end{enumerate}
 
 % ══════════════════════════════════════════════════════════════════════
@@ -139,7 +136,7 @@ justice, životního prostředí, společenských výzev, digitalizace, zahrani�
 politiky, bezpečnosti a~obrany, jakož i~několik přímých duelů mezi
 kandidáty. Promluvy moderátorů (celkem 3\,155) jsou v~analýze zachovány jako
 referenční kategorie, neboť jejich diskurzivní profil (krátké, lexikálně
-diverzní výroky) poskytuje užitečný kontrast.
+diverzní výroky) poskytuje zajímavý kontrast.
 
 \begin{table}[H]
   \centering
@@ -167,7 +164,7 @@ diverzní výroky) poskytuje užitečný kontrast.
 \section{Metodologie}
 \label{sec:metodologie}
 
-Analytická pipeline PDT sestává ze šesti fází, z~nichž pátá (LLM obohacení)
+Analytická pipeline sestává z šesti fází, z~nichž pátá (LLM obohacení)
 je volitelná. Každá fáze implementuje princip idempotence — kontroluje
 existenci výstupního souboru a~shodu počtu řádků, čímž je zajištěna
 reprodukovatelnost i~efektivita opakovaných běhů.
@@ -211,9 +208,8 @@ Logaritmická transformace, která tlumí závislost na délce textu:
 Nižší hodnota $a^2$ indikuje vyšší lexikální bohatství. Tato míra je
 vhodnější pro komparativní analýzu promluv různých délek než prostý TTR.
 
-Tokenizace je záměrně implementována jazykově agnostickým způsobem
-(převod na malá písmena, segmentace na mezerách), čímž je zajištěna
-transparentnost a~nezávislost na externích morfologických nástrojích.
+Tokenizace je implementována jazykově nezávislým způsobem bez ohledu na gramatická či morfologická specifika daného jazyka
+(převod na malá písmena, segmentace na mezerách).
 
 \subsection{Fáze~3: Sentence embeddingy}
 \label{sec:embeddings}
@@ -239,7 +235,7 @@ strukturu dat, čímž poskytuje věrohodnější vizuální reprezentaci séman
 shluků než lineární metoda PCA. Parametry redukce: \texttt{n\_components=2},
 \texttt{random\_state=42}.
 
-Jako záložní metoda je implementována PCA ze~knihovny scikit-learn, která se
+Jako záložní metoda je implementována PCA z~knihovny scikit-learn, která se
 automaticky aktivuje v~prostředí bez nainstalovaného balíčku
 \texttt{umap-learn}.
 
@@ -248,7 +244,7 @@ embeddingový vektor všech promluv dané strany v~plném 384D prostoru.
 Mezistraná kosinová vzdálenost centroidů slouží jako míra celkové sémantické
 odlišnosti rétorických pozic.
 
-\subsection{Fáze~5: LLM anotace (volitelná)}
+\subsection{Fáze~5: LLM anotace}
 \label{sec:enrichment}
 
 Promluvy mohou být volitelně obohaceny o~automaticky generované anotace
@@ -298,17 +294,12 @@ Z~vizualizace lze identifikovat několik klíčových vzorců:
   parlamentních stran se koncentruje v~jednom dominantním shluku v~levé
   části projekce (přibližně $\mathrm{dim}_0 \in [-5, 5]$,
   $\mathrm{dim}_1 \in [0, 8]$). Tato konvergence naznačuje, že politický
-  diskurz v~ekonomickém tématu sdílí značnou část sémantického prostoru
+  diskurz témat sdílí značnou část sémantického prostoru
   napříč ideologickým spektrem.
 
-  \item \textbf{Centroidy stran.} Centroidy středových a~systémových
-  stran (ANO, SPOLU, STAN, Piráti) se nacházejí v~těsné blízkosti
-  centra hlavního shluku, zatímco centroidy některých menších subjektů
-  vykazují mírný posun. Moderátor se nachází rovněž v~blízkosti
-  centrálního shluku, což odpovídá jeho tematicky neutrální,
-  organizační roli.
-
-  \item \textbf{Okrajové shluky.} V~pravé a~horní části projekce lze
+  \item \textbf{Sémantická pozice moderátora.} Promluvy moderátora vykazují výraznou tendenci ke~shlukování v~rámci hlavního sémantického clusteru, což reflektuje jeho věcně neutrální a organizační roli. Přesto je u~těchto promluv patrná tendence k~formování vlastních specifických podshluků; tato diskurzivní distinkce pravděpodobně odráží funkční odlišnost metajazykových a procedurálních prvků od~věcné argumentace politických aktérů.
+  
+  \item \textbf{Okrajové shluky.} V~horní části projekce i na pravo od hlavního dominantního clusteru lze
   pozorovat separované menší shluky ($\mathrm{dim}_0 > 10$), které
   představují sémanticky odlišné typy promluv — pravděpodobně
   procedurální výroky, emotivní prohlášení nebo specifické duelové
@@ -362,7 +353,7 @@ Z~dat vyplývají následující pozorování:
   vykazují nejvyšší průměrnou délku věty (20{,}1~slov) při současně
   nejnižším TTR mezi politickými stranami (0{,}869). Tato kombinace
   naznačuje tendenci k~delším, argumentačně strukturovaným souvětím
-  s~vyšší mírou lexikální repetice. Jde o~diskurzivní styl
+  s~vyšší mírou lexikální repetice. Může jít o styl
   charakteristický pro expertní, technicistní rétoriku.
 
   \item \textbf{ANO a~SPOLU: kompaktní vyjadřování.} Obě strany
@@ -401,30 +392,21 @@ věnovaných danému tématu (řádková normalizace).
 
 Klíčová zjištění:
 
-\begin{enumerate}
-  \item \textbf{Superdebata jako dominantní blok.} Tematický blok
-  \textit{Superdebata} (28.\,9.) koncentruje u~většiny stran 10--15\,\%
-  celkového slovního rozsahu. U~strany ANO dosahuje podíl~12\,\%,
-  u~SPD dokonce~15\,\%, což naznačuje strategické nasazení na tento
-  formát s~vysokou sledovaností.
+\begin{itemize}
+  \item \textbf{Dominance moderátora v zahraniční politice.} Výrazným rysem heatmapy je anomální koncentrace promluv moderátora v bloku „Zahraniční politika“ (32 \%), což ostře kontrastuje s jeho minimálním zapojením v duelových formátech (2--3 \%). Tato hodnota může indikovat buď rozsáhlé moderátorské expozice v daném tématu, nebo potenciální nesrovnalost v datovém souboru.
 
-  \item \textbf{Duelové formáty.} Specifické duely vykazují výrazné
-  koncentrace u~příslušných stran — duel \textit{Končená--Okamura}
-  (14.\,9.) ukazuje zvýšenou koncentraci u~SPD (9\,\%), duel
-  \textit{Rakušan--Hřib} (22.\,9.) dominuje u~STAN (17\,\%).
-  Moderátor vykazuje nejvyšší koncentraci právě v~bloku
-  \textit{Superdebata} (32\,\%), což odpovídá jeho řídící roli
-  v~tomto rozsáhlém formátu.
+  \item \textbf{Strategická stabilita hnutí ANO.} Projevy hnutí ANO vykazují vysokou míru tematické stability v rozmezí 6--8 \% u většiny agend. Signifikantní propad je však patrný v tématech bezpečnosti a obrany (4 \%) a zdravotnictví (4 \%).
 
-  \item \textbf{Tematické preference Stačilo!} Strana Stačilo! vykazuje
-  zvýšenou koncentraci v~blocích \textit{Sociální věci} (15\,\%) a~\textit{Ekonomika} (10\,\%),
-  což koresponduje s~programovou orientací na sociální a~ekonomická témata.
+  \item \textbf{Tematické priority Motoristů.} Subjekt vykazuje cílené zaměření na oblasti „Společnost a výzvy“ a „Digitalizace státu“, kde dosahuje shodně 8 \% svého celkového slovního rozsahu, což je mírně nadprůměrná hodnota ve srovnání s jejich ostatními agendami.
 
-  \item \textbf{Relativní rovnoměrnost systémových stran.} Velké
-  parlamentní strany (ANO, SPOLU, Piráti) vykazují relativně rovnoměrnou
-  distribuci pozornosti napříč tématy (většina hodnot v~rozmezí
-  4--8\,\%), což odráží záměr pokrýt celé spektrum politických otázek.
-\end{enumerate}
+  \item \textbf{Digitalizační akcent Pirátů.} Agenda Pirátů je rozdělena do dvou úrovní: primární skupina témat vykazuje podíl kolem 7 \%, zatímco sekundární agendy (např. justice, vztahy s EU) se pohybují kolem 4--5 \%. Výjimku tvoří téma „Digitalizace státu“ (9 \%), do kterého se Piráti zapojili výrazněji než do většiny ostatních bloků, což patrně souvisí s akcentem na agendu ex-ministra Bartoše.
+
+  \item \textbf{Konfrontační dominance SPD.} Strategie SPD je charakteristická extrémním výkyvem v rámci duelového formátu (14. 9.), kde předseda Okamura generuje 19 \% celkového slovního objemu strany, což výrazně převyšuje podíl v jakémkoliv jiném tematickém bloku.
+
+  \item \textbf{Programová vyváženost koalice SPOLU.} Jako klíčový subjekt tehdejší vládní koalice vykazuje SPOLU nejrovnoměrnější distribuci promluv napříč všemi bloky (většinou 7--8 \%). Tato rovnoměrnost indikuje snahu o komplexní pokrytí celého vládního spektra bez výrazných prioritních či deficitních témat.
+
+  \item \textbf{Vysoká agendační volatilita Stačilo!.} Projevy subjektu Stačilo! vykazují značnou nevyrovnanost; výrazně se soustředí na témata „Vztahy s EU“ a „Zahraniční politika“ (shodně 10 \%), avšak téměř zcela opomíjejí oblasti bezpečnosti (4 \%), vzdělávání (3 \%) či společenských výzev (3 \%).
+\end{itemize}
 
 % ══════════════════════════════════════════════════════════════════════
 \section{Diskuse}
@@ -437,7 +419,7 @@ o~povaze politického diskurzu v~české předvolební kampani~2025.
 
 Dominantní centrální shluk v~UMAP projekci (obr.~\ref{fig:semantic_map})
 naznačuje, že navzdory deklarovaným ideologickým rozdílům operují české
-politické strany v~ekonomickém tématu ve~sdíleném sémantickém prostoru.
+politické strany v~předvolebních tématech ve~sdíleném sémantickém prostoru.
 Toto zjištění je konzistentní s~teorií diskurzivního mainstreamu
 (Angermuller, 2014), podle níž institucionalizovaný politický diskurz
 tenduje ke~konvergenci v~základních pojmových rámcích.
@@ -504,7 +486,7 @@ Předložená analýza má několik omezení, která je třeba reflektovat:
 Předkládaná studie demonstrovala, že kvantitativní metody založené na
 sentence embeddingách, redukci dimenzí a~lexikálních metrikách mohou
 poskytnout systematický a~reprodukovatelný pohled na strukturu politického
-diskurzu. Pipeline PDT transformuje surový textový přepis na trojici
+diskurzu. Pipeline transformuje surový textový přepis na trojici
 vizualizací — sémantickou mapu, bubble chart rétorického profilu
 a~heatmapu tematické dominance — které společně zachycují sémantické,
 lexikální a~tematické dimenze diskurzivního prostoru.
@@ -520,7 +502,7 @@ kategorie.
 
 Budoucí výzkum by mohl rozšířit analýzu o~temporální dimenzi (vývoj
 sémantického prostoru v~čase debaty), interakční analýzu (komu kdo
-odpovídá) a~kontrastivní srovnání s~korpusy politických debat v~jiných
+odpovídá) a~srovnání s~korpusy politických debat v~jiných
 jazycích středoevropského prostoru.
 
 % ══════════════════════════════════════════════════════════════════════
