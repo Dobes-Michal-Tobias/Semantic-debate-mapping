@@ -95,9 +95,6 @@ being developed further in collaboration with:
 - **doc. Mgr. Dan Faltýnek, Ph.D.** — Department of General Linguistics, Faculty of Arts, Palacký University Olomouc
 - **Mgr. Martina Benešová, Ph.D.** — Department of General Linguistics, Faculty of Arts, Palacký University Olomouc
 
-Planned extensions include a temporal analysis of semantic drift across the debate series,
-interaction analysis (who responds to whom), and cross-language comparison with debate corpora
-from other Central European countries.
 
 ---
 
