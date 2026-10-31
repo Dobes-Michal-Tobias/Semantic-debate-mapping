@@ -1,12 +1,13 @@
 # Mapping Semantic Convergence and Lexical Diversity in the 2025 Czech Election Debates
 
-> **Status:** Manuscript in preparation — findings are preliminary and subject to revision.
+> **Status:** Completed course project (master's level, Department of General Linguistics, FF UP).
+> Not under further development; findings are exploratory and have not been peer-reviewed.
 
 Computational analysis of Czech Television pre-election debate transcripts (autumn 2025) using
 sentence embeddings, dimensionality reduction, and LLM-powered rhetorical tagging.
 
-> **Working paper:** See [`working-paper.pdf`](working-paper.pdf) for the current write-up (in Czech).
-> This is an informal prototype document, not a published or peer-reviewed article.
+> **Write-up:** See [`working-paper.pdf`](working-paper.pdf) (in Czech). It is the final paper of the
+> course, not a published or peer-reviewed article.
 
 ---
 
@@ -17,8 +18,8 @@ Tato studie navrhuje a aplikuje kvantitativní pipeline pro analýzu politickéh
 embeddingy (model `paraphrase-multilingual-MiniLM-L12-v2`), redukci dimenzí algoritmem UMAP a
 lexikální metriky (TTR, Maas index) s klasifikací promluv pomocí velkých jazykových modelů.
 Výsledky naznačují výraznou sémantickou konvergenci středových stran, odlišnou syntaktickou
-komplexitu Pirátů a specifické tematické strategie protisystémových subjektů. Výzkum dále
-pokračuje ve spolupráci s kolegy z Katedry obecné lingvistiky FF UP.
+komplexitu Pirátů a specifické tematické strategie protisystémových subjektů. Projekt vznikl jako
+závěrečná práce magisterského kurzu na Katedře obecné lingvistiky FF UP a dál se nerozvíjí.
 
 ---
 
@@ -87,16 +88,6 @@ The heatmap of 18 thematic debate blocks reveals several strategic patterns:
 
 ---
 
-## Ongoing Work & Team
-
-This repository is an active research project continuing beyond its seminar origins. The work is
-being developed further in collaboration with:
-
-- **doc. Mgr. Dan Faltýnek, Ph.D.** — Department of General Linguistics, Faculty of Arts, Palacký University Olomouc
-- **Mgr. Martina Benešová, Ph.D.** — Department of General Linguistics, Faculty of Arts, Palacký University Olomouc
-
-
----
 
 ## What it does
 
